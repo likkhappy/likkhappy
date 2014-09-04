@@ -1,0 +1,10 @@
+{
+  "app/TestJuicer.js": "539c5ffd5e",
+  "core/jquery.js": "569f6afc30",
+  "lib/JuicerTemplate.js": "e4a4ad682c",
+  "lib/SwfUpload.js": "60bc12f5d6",
+  "seajs/seajs.js": "37fdf3ff41",
+  "template/test.html.js": "2af4d9702e",
+  "util/a.js": "2d154af98a",
+  "util/b.js": "582efecf44"
+}

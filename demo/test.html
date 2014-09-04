@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        (function (window) {
+            var seajs = window.seajs;
+            if (seajs) return;
+            seajs = {};
+            seajs._cache = {};
+
+            var api = ['use', 'config', 'on', 'emit'];
+            for (var len = api.length; len--;) {
+                var cache = seajs._cache;
+                var name = api[len];
+                seajs[name] = (function (n) {
+                    var name = n;
+                    return function () {
+                        var arr = [].slice.apply(arguments);
+                        if (!cache[name]) cache[name] = [];
+                        cache[name].push(arr);
+                    }
+                })(name)
+            }
+            var doReady = function () {
+                var dcLoad, flag = 0;
+                var ready = function () {
+                    if (flag === 0) {
+                        var s = document.createElement('script');
+                        s.src = '../src/js/seajs/seajs.js';
+                        s.type = 'text/javascript';
+                        document.getElementsByTagName('head')[0].appendChild(s);
+                        s = null;
+                        flag = 1;
+                    }
+                    ;
+                }
+                if (document.readyState === 'complete') {
+                    return setTimeout(ready, 1);
+                }
+                if (document.addEventListener) {
+                    dcLoad = function () {
+                        document.removeEventListener('DOMContentLoaded', dcLoad, false);
+                        ready();
+                    }
+                    document.addEventListener('DOMContentLoaded', dcLoad, false);
+                    window.addEventListener('load', ready, false);
+                } else if (document.attachEvent) {
+                    dcLoad = function () {
+                        if (document.readyState === 'complete') {
+                            document.detachEvent('onreadystatechange', dcLoad);
+                            ready();
+                        }
+                    }
+                    document.attachEvent('onreadystatechange', dcLoad);
+                    window.attachEvent('onload', ready);
+                }
+            };
+            window.seajs = seajs;
+            doReady();
+        })(window);
+    </script>
+    <script>
+        seajs.config({
+            base: '../src/js/',
+            charset: 'utf-8',
+            alias: {
+                '$': 'core/jquery.js'
+            }
+        });
+        seajs.use('$',function($){
+//            alert('hello');
+            console.log($);
+        });
+        seajs.use(['app/TestJuicer','$'],function(test,$){
+            $('#btn').bind('click',function(){
+                var val = $('#val').val();
+                var reg = /^[^0]{1}[0-9]*$/;
+                var shu = val;
+                var test = reg.test(shu);
+                $('body').append(test+"\n");
+                $('body').append(shu);
+
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+
+<input id="val">
+<input type="button" id="btn" value="按钮">
+
+</body>
+</html>

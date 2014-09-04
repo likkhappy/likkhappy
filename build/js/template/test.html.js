@@ -1,0 +1,1 @@
+define("template/test.html", [], "<ul>\n    {@each list as it,index}\n    <li>${it.name} (index: ${index})</li>\n    {@/each}\n\n    {@each blah as it}\n    <li>\n        num: ${it.num} <br />\n        {@if it.num==3}\n        {@each it.inner as it2}\n        ${it2.time} <br />\n        {@/each}\n        {@/if}\n    </li>\n    {@/each}\n</ul>");

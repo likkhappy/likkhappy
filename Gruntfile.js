@@ -13,6 +13,9 @@ module.exports = function(grunt){
         clean:{
             build:{
                 src:['<%= pkg.build_path%>']
+            },
+            dist:{
+                src:['<%= pkg.dist_path%>']
             }
         },
 
@@ -66,6 +69,15 @@ module.exports = function(grunt){
                 cwd:config.build_path+config.js_path,
                 src:['**/*.js']
             }
+        },
+        //copy  seajs文件夹
+        copy:{
+            seajs:{
+                expand:true,
+                cwd:config.src_path+config.js_path,
+                src:"seajs/**/*.js",
+                dest:config.build_path+config.js_path
+            }
         }
 
     });
@@ -73,14 +85,36 @@ module.exports = function(grunt){
     grunt.loadNpmTasks("grunt-cmd-transport");
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks('grunt-hashmap');
 
-    grunt.registerTask("default_clean",["clean:build"]);
-    grunt.registerTask("default",["transport:all"]);
-    grunt.registerTask("uglify_js",["uglify:all"]);
-    grunt.registerTask("default_hashmap",['hashmap:js']);
+    //清空所有的非工作目录
+    grunt.registerTask("default_clean",["clean:build","clean:dist"]);
+
+    //本地传到测试目录  ====>  提取模块中的依赖
+    grunt.registerTask("default_trans",["transport:all"]);
+    //seajs模块的复制  ====>  seajs 没有模块依赖的提取
+    grunt.registerTask("default_copy",['copy:seajs']);
+    //测试传到线上目录 ====>  压缩、合并
+    grunt.registerTask("default_ugli",["uglify:all"]);
+    //生成对应的hash值
+    grunt.registerTask('default_map',['hashmap:js']);
+
+
+    //本地环境  ====>  .html 转变为 .js文件
     grunt.registerTask('default_temp',['transport:temp']);
 
-    grunt.registerTask('map',["clean:build","transport:all",'hashmap:js']);
+    // 第一次创建测试目录
+    grunt.registerTask("first-test",["clean:build","transport:all",'copy:seajs']);
+    //非第一次创建
+    grunt.registerTask("test",["transport:all"]);
+
+    //第一次创建线上目录
+    grunt.registerTask("first-line",["clean:dist","uglify:all",'hashmap:js']);
+    //非第一次
+    grunt.registerTask("line",["uglify:all",'hashmap:js']);
+
+    // src-build-line
+    grunt.registerTask("all",["clean:build","clean:dist","transport:all",'copy:seajs',"uglify:all",'hashmap:js']);
 
 }
