@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+    <title>SWFUpload</title>
+    <link href="http://9dian.me/css/default.css" rel="stylesheet" type="text/css" />
+    <script>
+        (function(window){
+            var seajs = window.seajs;
+            if(seajs) return;
+            seajs = {};
+            seajs._cache={};
+
+            var api = ['use','config','on','emit'];
+            for(var len = api.length;len--;){
+                var cache = seajs._cache;
+                var name = api[len];
+                seajs[name] = (function(n){
+                    var name = n;
+                    return function(){
+                        var arr = [].slice.apply(arguments);
+                        if(!cache[name]) cache[name] = [];
+                        cache[name].push(arr);
+                    }
+                })(name)
+            }
+            var doReady = function(){
+                var dcLoad,flag = 0;
+                var ready = function(){
+                    if(flag === 0){
+                        var s = document.createElement('script');
+                        s.src = '../src/js/seajs/seajs.js';
+                        s.type = 'text/javascript';
+                        document.getElementsByTagName('head')[0].appendChild(s);
+                        s = null;
+                        flag = 1;
+                    };
+                }
+                if(document.readyState === 'complete'){
+                    return setTimeout(ready,1);
+                }
+                if(document.addEventListener){
+                    dcLoad = function(){
+                        document.removeEventListener('DOMContentLoaded',dcLoad,false);
+                        ready();
+                    }
+                    document.addEventListener('DOMContentLoaded',dcLoad,false);
+                    window.addEventListener('load',ready,false);
+                }else if(document.attachEvent){
+                    dcLoad = function(){
+                        if(document.readyState === 'complete'){
+                            document.detachEvent('onreadystatechange',dcLoad);
+                            ready();
+                        }
+                    }
+                    document.attachEvent('onreadystatechange',dcLoad);
+                    window.attachEvent('onload',ready);
+                }
+            };
+            window.seajs = seajs;
+            doReady();
+        })(window);
+    </script>
+    <script>
+        seajs.config({
+            base:'../src/js/',
+            charset:'utf-8',
+            alias:{
+                '$':'core/jquery.js'
+            }
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        seajs.use(['lib/SwfUpload','util/swf/fileprogress','util/swf/handlers','util/swf/swfupload.queue'],
+                function(swfupload,progress,handler,queue){
+                    console.log(handler);
+            var swfu;
+            window.onload = function() {
+                var settings = {
+                    flash_url: "swfupload.swf",
+                    upload_url: "http://fzcc.bj.jiaoyuyun.com/fastdfs/upload",
+                    post_params: {"PHPSESSID": ""},
+                    file_size_limit: "100 MB",
+                    file_types: "*.*",
+                    file_types_description: "All Files",
+                    file_upload_limit: 10,  //配置上传个数
+                    file_queue_limit: 0,
+                    file_post_name: 'Filedata',
+                    custom_settings: {
+                        progressTarget: "fsUploadProgress",
+                        cancelButtonId: "btnCancel"
+                    },
+                    debug: true,
+
+                    // Button settings
+                    button_image_url: "http://9dian.me/images/TestImageNoText_65x29.png",
+                    button_width: "65",
+                    button_height: "29",
+                    button_placeholder_id: "spanButtonPlaceHolder",
+                    button_text: '<span class="theFont">浏览</span>',
+                    button_text_style: ".theFont { font-size: 16; }",
+                    button_text_left_padding: 12,
+                    button_text_top_padding: 3,
+
+                    file_queued_handler: handler.fileQueued,
+                    file_queue_error_handler: handler.fileQueueError,
+                    file_dialog_complete_handler: handler.fileDialogComplete,
+                    upload_start_handler: handler.uploadStart,
+                    upload_progress_handler: handler.uploadProgress,
+                    upload_error_handler: handler.uploadError,
+                    upload_success_handler: handler.uploadSuccess,
+                    upload_complete_handler: handler.uploadComplete,
+                    queue_complete_handler: handler.queueComplete
+                };
+
+                swfu = new swfupload(settings);
+            }
+        });
+    </script>
+</head>
+<body>
+<div id="header">
+    <h1 id="logo"><a href="/">SWFUpload</a></h1>
+    <div id="version">v2.2.0</div>
+</div>
+
+<div id="content">
+    <form id="form1" action="index.php" method="post" enctype="multipart/form-data">
+        <p>点击“浏览”按钮，选择您要上传的文档文件后，系统将自动上传并在完成后提示您。</p>
+        <p>请勿上传包含中文文件名的文件！</p>
+        <div class="fieldset flash" id="fsUploadProgress">
+            <span class="legend">快速上传</span>
+        </div>
+        <div id="divStatus">0 个文件已上传</div>
+        <div>
+            <span id="spanButtonPlaceHolder"></span>
+            <input id="btnCancel" type="button" value="取消所有上传" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" />
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
