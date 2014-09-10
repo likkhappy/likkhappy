@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script type="text/javascript" src=""></script>
     <script>
         (function(window){
             var seajs = window.seajs;
@@ -72,13 +73,13 @@
 </head>
 <body>
     <script>
-        seajs.use('app/Test1',function(obj){
+       /* seajs.use('app/Test1',function(obj){
             console.log('返回的值是：'+obj);
-        })
-       /* seajs.use('app/Test2',function(obj){
+        })*/
+        seajs.use('app/Test2',function(obj){
             var o = new obj();
             o.init();
-        });*/
+        });
     </script>
 </body>
 </html>
