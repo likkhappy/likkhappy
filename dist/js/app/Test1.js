@@ -1,0 +1,1 @@
+define("app/Test1",["core/jquery"],function(a,b,c){alert("Test1");a("core/jquery");return console.log(c),1});

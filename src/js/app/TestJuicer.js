@@ -4,7 +4,8 @@
  * @history:
  */
 define(function (require, exports, module) {
-    var juicer = require('../lib/JuicerTemplate');
+    var juicer = require('lib/JuicerTemplate');
+    var $  = require('$');
     var data={
         list:[
             {name:'guokai',show:true},
@@ -26,7 +27,7 @@ define(function (require, exports, module) {
     var obj = function(){
         var self = this;
         $.extend(self,{
-            temp:require('template/test.html'),
+//            temp:require('template/test.html'),
                 f1:function(){
                 console.log('abc=========TestJuicer');
             }

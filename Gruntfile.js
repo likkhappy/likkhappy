@@ -8,6 +8,7 @@
 module.exports = function(grunt){
 
     var config = grunt.file.readJSON('package.json');
+    console.log(config.sea.alias);
     grunt.initConfig({
         pkg:config,
         clean:{
@@ -20,18 +21,19 @@ module.exports = function(grunt){
         },
 
         transport:{
-            options:{
-                paths:config.src_path+config.js_path,
-                alias:'<%=pkg.sea.alias%>',
-                debug:false
-            },
             all:{
+                options:{
+                    paths:[config.src_path+config.js_path],
+//                    alias:{"$":"core/jquery"},
+                    alias:"<%= pkg.sea.alias %>",
+                    debug:false
+                },
                 files:[{
                     expand:true,//智能搜索
                     cwd:config.src_path+config.js_path,//目标路径
                     src:['**/*.js','!seajs/*'] ,// 目标文件
 //                    src:'**/**/*.*',
-                    dest:config.build_path + config.js_path//生成到哪
+                    dest:config.build_path+config.js_path//生成到哪
                 }]
             },
             // 生成可用的.js模板
@@ -46,7 +48,14 @@ module.exports = function(grunt){
         },
         //配置合并js，目前不合并模块依赖
         concat:{
-
+            dist:{
+                options:{
+                    paths:[config.src_path+config.build_path]
+                },
+                files:{
+                    'build/js/tmp/a.js':['build/js/lib/JuicerTemplate.js','build/js/lib/SwfUpload.js']
+                }
+            }
         },
         //压缩js
         uglify:{
@@ -108,6 +117,9 @@ module.exports = function(grunt){
     grunt.registerTask("first-test",["clean:build","transport:all",'copy:seajs']);
     //非第一次创建
     grunt.registerTask("test",["transport:all"]);
+
+    //合并文件
+    grunt.registerTask('default',['concat:dist']);
 
     //第一次创建线上目录
     grunt.registerTask("first-line",["clean:dist","uglify:all",'hashmap:js']);

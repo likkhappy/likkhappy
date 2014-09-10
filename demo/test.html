@@ -63,7 +63,7 @@
     </script>
     <script>
         seajs.config({
-            base: '../src/js/',
+            base: '../build/js/',
             charset: 'utf-8',
             alias: {
                 '$': 'core/jquery.js'
@@ -73,7 +73,7 @@
 //            alert('hello');
             console.log($);
         });
-        seajs.use(['app/TestJuicer','$'],function(test,$){
+       /* seajs.use(['app/TestJuicer','$'],function(test,$){
             $('#btn').bind('click',function(){
                 var val = $('#val').val();
                 var reg = /^[^0]{1}[0-9]*$/;
@@ -83,8 +83,9 @@
                 $('body').append(shu);
 
             });
-
-
+        });*/
+        seajs.use(['tmp/a.js'],function(a){
+            console.log(a);
         });
     </script>
 </head>

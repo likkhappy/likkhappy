@@ -3,8 +3,9 @@
  * @date:2014/9/3
  * @history:
  */
-define("app/TestJuicer", [ "../lib/JuicerTemplate", "template/test.html", "template/test.html" ], function(require, exports, module) {
-    var juicer = require("../lib/JuicerTemplate");
+define("app/TestJuicer", [ "lib/JuicerTemplate", "core/jquery", "template/test.html" ], function(require, exports, module) {
+    var juicer = require("lib/JuicerTemplate");
+    var $ = require("core/jquery");
     var data = {
         list: [ {
             name: "guokai",
@@ -38,7 +39,7 @@ define("app/TestJuicer", [ "../lib/JuicerTemplate", "template/test.html", "templ
     var obj = function() {
         var self = this;
         $.extend(self, {
-            temp: require("template/test.html"),
+            //            temp:require('template/test.html'),
             f1: function() {
                 console.log("abc=========TestJuicer");
             }

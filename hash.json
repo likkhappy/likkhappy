@@ -1,10 +1,16 @@
 {
-  "app/TestJuicer.js": "539c5ffd5e",
+  "app/Test1.js": "1e4447274f",
+  "app/Test2.js": "61be0df04a",
+  "app/TestJuicer.js": "d21f21aeab",
+  "app/TestSwfUpload.js": "962dd06d51",
   "core/jquery.js": "569f6afc30",
   "lib/JuicerTemplate.js": "e4a4ad682c",
   "lib/SwfUpload.js": "60bc12f5d6",
   "seajs/seajs.js": "37fdf3ff41",
   "template/test.html.js": "2af4d9702e",
   "util/a.js": "2d154af98a",
-  "util/b.js": "582efecf44"
+  "util/b.js": "582efecf44",
+  "util/swf/fileprogress.js": "38a893d005",
+  "util/swf/handlers.js": "a78e84a558",
+  "util/swf/swfupload.queue.js": "27b02d43db"
 }

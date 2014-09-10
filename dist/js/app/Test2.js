@@ -1,0 +1,1 @@
+define("app/Test2",["core/jquery"],function(a){var b=a("core/jquery"),c=function(){var a=this;b.extend(a,{init:function(){a.step1(),alert("hello")},step1:function(){alert("step1")}})};return c});

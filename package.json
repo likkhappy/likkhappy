@@ -22,9 +22,9 @@
         "grunt-hashmap":"~0.1.1"
     },
     "sea":{
-        "base":"http://127.0.0.1/src/js/",
+        "base":"http://127.0.0.1/src/js",
         "alias":{
-            "$":"core/jquery.js"
+            "$":"core/jquery"
         }
     }
 }
