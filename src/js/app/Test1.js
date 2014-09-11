@@ -4,8 +4,19 @@
  * @history:
  */
 define(function (require, exports, module) {
-      alert('Test1');
+//      alert('Test1');
     var $ = require('$');
     console.log(module);
-    return 1;
+
+    function clickFn(){
+        alert('hello');
+    }
+    var obj ={
+        clic:clickFn
+    }
+
+    $('#btn').bind('click',function(){
+        alert('btn');
+    });
+    return obj;
 });

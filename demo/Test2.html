@@ -1,9 +1,8 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script type="text/javascript" src=""></script>
     <script>
         (function(window){
             var seajs = window.seajs;
@@ -67,16 +66,22 @@
             charset:'utf-8',
             alias:{
                 '$':'core/jquery.js'
-            }
+            },
+             map: [
+             [ 'app/Test1', 'app/Test1_asdafds' ],
+                     []
+             ]
         });
     </script>
 </head>
 <body>
-    <script>
-       /* seajs.use('app/Test1',function(obj){
-            console.log('返回的值是：'+obj);
-        })*/
-        seajs.use('app/Test2');
-    </script>
+<script>
+    seajs.use('app/Test1.js');
+</script>
+
+<input type="button" id="btn" value="btn" >
+
+
+
 </body>
 </html>

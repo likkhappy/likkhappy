@@ -10,10 +10,14 @@ define("app/Test2", [ "core/jquery" ], function(require, exports, module) {
         $.extend(self, {
             init: function() {
                 self.step1();
+                self.step2();
                 alert("hello");
             },
             step1: function() {
                 alert("step1");
+            },
+            step2: function() {
+                alert("step2");
             }
         });
     };

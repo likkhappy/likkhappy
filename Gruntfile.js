@@ -125,6 +125,7 @@ module.exports = function(grunt){
     grunt.registerTask("first-line",["clean:dist","uglify:all",'hashmap:js']);
     //非第一次
     grunt.registerTask("line",["uglify:all",'hashmap:js']);
+    grunt.registerTask('default',["concat:dist"]);
 
     // src-build-line
     grunt.registerTask("all",["clean:build","clean:dist","transport:all",'copy:seajs',"uglify:all",'hashmap:js']);
