@@ -130,4 +130,8 @@ module.exports = function(grunt){
     // src-build-line
     grunt.registerTask("all",["clean:build","clean:dist","transport:all",'copy:seajs',"uglify:all",'hashmap:js']);
 
+	
+	
+	
+	
 }
