@@ -1,0 +1,25 @@
+{
+  "name": "JD Verb",
+  "description": "Demonstrates usage and features of the event page",
+  "version": "1.0",
+  "permissions": ["alarms", "tabs", "bookmarks", "*://*/*"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon" : "icon.png",
+    "default_title": "Start Event Page"
+  },
+  "commands": {
+    "open-google": {
+      "description": "Open a tab to erp.jd.com",
+      "suggested_key": { "default": "Ctrl+Shift+L" }
+    },
+    "_execute_browser_action": {
+      "suggested_key": { "default": "Ctrl+Shift+K" }
+    }
+  },
+
+  "manifest_version": 2
+}
